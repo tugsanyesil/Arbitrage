@@ -1,0 +1,144 @@
+<Counter@MDCard>:
+    count: 0
+    radius: [15]
+    size_hint: None, None
+    size: dp(150),dp(50)
+
+    MDGridLayout:
+        cols: 3
+
+        MDBoxLayout:
+            adaptive_width: True
+
+            MDIconButton:
+                icon: 'minus-box-outline'
+                pos_hint: {'center_y': .5, 'center_x': .5}
+                on_press: root.count -= 1
+        MDLabel:
+            id: counter_text
+            md_bg_color : [182/255, 66/255, 245/255, 1]
+            font_style: 'Subtitle2'
+            text: str(root.count)
+            halign: 'center'
+
+        MDBoxLayout:
+            adaptive_width: True
+
+            MDIconButton:
+                icon: 'plus-box-outline'
+                pos_hint: {'center_y': .5, 'center_x': .5}
+                on_press:  root.count += 1
+
+<ChatSlot>:
+    ripple_behavior: True
+    image: ''
+    text: ''
+    size_hint: None, None
+    size: dp(200),dp(200)
+
+    MDCard:
+        size_hint: None, None
+        size: dp(200),dp(200)
+        radius: dp(25)
+        md_bg_color: (0, 0, 0, 1)
+        FitImage:
+            radius:dp(25),dp(25)
+            source: root.image
+
+
+    MDLabel:
+        text: root.text
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        font_style: 'H6'
+        adaptive_size: True
+        x: (root.width-self.width)*0.5
+        y: dp(12)
+
+<Tab@MDBoxLayout+MDTabsBase>:
+
+<MatrixBox>:
+    md_bg_color: (0, 1, 0, 1)
+    length: 1
+    cols: 1
+    rows: 1
+    padding: '5dp'
+    spacing: '5dp'
+
+
+Root:
+    orientation: "vertical"
+
+    MDTabs:
+        id: tabs
+
+        Tab:
+            id: indicators_tab
+            text: 'Indicators'
+            md_bg_color: (0, 0, 0, 1)
+            BoxLayout:
+                id:CandleBox
+
+        Tab:
+            id: unary_arbitrage_tab
+            text: 'Unary Arbitrage'
+
+            MDCard:
+                elevation: 0
+                id:GraphBox
+
+                size_hint: 0.5,1
+                md_bg_color: (0, 0, 0, 1)
+
+            MatrixBox:
+                id:matrix_box
+                size_hint: 0.5,1
+                pos_hint: { 'x': 0.4, 'y': 0.2 }
+        Tab:
+            id: binary_arbitrage_tab
+            text: 'Binary Arbitrage'
+
+            MDCard:
+                elevation: 0
+                id:GraphBox
+
+                size_hint: 0.5,1
+                md_bg_color: (0, 0, 0, 1)
+
+            MatrixBox:
+                id:matrix_box
+                size_hint: 0.5,1
+                pos_hint: { 'x': 0.4, 'y': 0.2 }
+
+        Tab:
+            id: triple_arbitrage_tab
+            text: 'Triple Arbitrage'
+
+            MDCard:
+                elevation: 0
+                id:GraphBox
+
+                size_hint: 0.5,1
+                md_bg_color: (0, 0, 0, 1)
+
+            MatrixBox:
+                id:matrix_box
+                size_hint: 0.5,1
+                pos_hint: { 'x': 0.4, 'y': 0.2 }
+
+        Tab:
+            id: telegram_tab
+            text: 'Telegram'
+
+            Counter:
+                id: chats_counter
+                pos_hint: { 'x': 0.0, 'y': 0.8 }
+                on_count: root.chats_counter_changed()
+
+            MDGridLayout:
+                id: chat_slots
+                size_hint: None, None
+                pos_hint: { 'x': 0.2, 'y': 0.8 }
+                cols: 3
+                padding: '15dp'
+                spacing: '15dp'
